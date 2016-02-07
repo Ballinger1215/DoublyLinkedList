@@ -1,0 +1,27 @@
+package dnode;
+
+/**
+ *
+ * @author Mark Bollinger
+ */
+public class Dnode {
+    
+    static int numOfLinkedList = 0;
+    
+    int data;
+    
+    Dnode previousNode;
+    Dnode nextNode;
+    
+    Dnode(int data){
+        
+        this.data = data;
+        numOfLinkedList++;
+        
+    }        
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+    }
+    
+}
