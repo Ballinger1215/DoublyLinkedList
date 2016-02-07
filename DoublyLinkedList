@@ -1,0 +1,171 @@
+package dnode;
+
+/**
+ *
+ * @author Mark Bollinger
+ */
+public class DoublyLinkedList {
+    
+    static Dnode root;
+    static Dnode temp;
+    static Dnode current;
+    
+    public void addNode(int data){
+        
+        Dnode dNode = new Dnode(data);
+        
+        if(root == null){
+            
+            root = dNode;
+            root.previousNode = null;
+            root.nextNode = null;
+        
+        }else{
+            
+            current = root;
+            
+            while(current.nextNode != null){
+            
+            current = current.nextNode;
+            
+        }
+            
+            current.nextNode = dNode;
+        }
+        
+    }
+    
+    public void insertNode(int data, int after){
+        
+        Dnode dNode = new Dnode(data);
+        
+        int newNode = 1;
+        
+        current = root;
+        
+        while(newNode != after){
+            
+            current.nextNode = root;
+            
+            newNode++;
+            
+        }
+        
+        temp = current.nextNode;
+        
+        current.nextNode = dNode;
+        dNode.nextNode = temp;
+        temp.previousNode = dNode;
+        dNode.previousNode = current;
+        
+    }
+    
+    public void deleteNode(int nodeNumber){
+        
+        int newNode = 1;
+        
+        current = root;
+        
+        if(nodeNumber == 1){
+            
+            root = current.nextNode;
+            current.nextNode = null;
+            current.previousNode = null;
+            
+        }else{
+            
+            while(newNode != nodeNumber){
+                
+                current = current.nextNode;
+                
+                newNode++;
+                
+            }
+            
+            if(current.nextNode == null){
+                
+                current.previousNode = current.nextNode;
+                current.nextNode.previousNode = current.previousNode;
+            }
+        }
+    }
+    
+    public String toString(){
+     
+        Dnode dNode = current.nextNode;
+        String result = "";
+        
+        while(dNode != null){
+            
+            result = result + "\n" + dNode.data;
+            dNode = dNode.nextNode;
+            
+        }
+        
+        return result;
+    }
+        
+        public void print(){
+            
+            current = root;
+            boolean arrow = true;
+            
+            do{
+               
+                System.out.print((arrow) ? "|" + current.data + "|" : " --> " + "|" + current.data + "|" );
+                
+                arrow = false;
+                
+                current = current.nextNode;
+                
+                }while(current != null);
+            
+            }
+
+        public void printBackwords(){
+            
+            current = root;
+            boolean arrow = true;
+            
+            while(current.nextNode != null){
+                
+                current = current.nextNode;
+                
+            }
+            
+            do{
+                
+                System.out.print((arrow) ? "|" + current.data + "|" : " --> " + "|" + current.data + "|" );
+            
+                arrow = false;
+                
+                current = current.previousNode;
+                
+            }while(current.previousNode != null);
+            
+            System.out.print(" --> " + "|" + current.data + "|" );
+
+        }
+    
+     public static void main(String[] args) {
+        
+         DoublyLinkedList list = new DoublyLinkedList();
+		
+		list.addNode(1);
+		list.addNode(2);
+		list.addNode(3);
+		list.addNode(4);
+		list.addNode(5);
+		list.addNode(6);
+		
+		list.print();
+		System.out.println();
+		list.printBackwords();
+		
+		System.out.println();
+		System.out.println("The number of DNodes in the Linked List is " + Dnode.numOfLinkedList);
+    }
+
+ 
+    
+}
